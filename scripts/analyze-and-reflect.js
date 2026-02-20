@@ -327,9 +327,11 @@ async function main() {
   console.log('═══════════════════════════════════════');
 }
 
-main().catch(err => {
-  console.error('❌ エラー:', err.message);
-  process.exit(1);
-});
+if (require.main === module) {
+  main().catch(err => {
+    console.error('❌ エラー:', err.message);
+    process.exit(1);
+  });
+}
 
 module.exports = { collectCurrentState, performReflection, saveReflection };
