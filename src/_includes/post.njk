@@ -4,6 +4,9 @@ layout: layout.njk
 
 <article class="post">
   <header class="post-header">
+    <div class="post-hero-image" style="margin-bottom: 2rem; border-radius: 12px; overflow: hidden; box-shadow: 0 0 30px rgba(125, 95, 255, 0.2);">
+      <img src="https://picsum.photos/seed/{{ date | isoDate }}/1200/600?grayscale&blur=2" alt="{{ title }}" style="width: 100%; height: auto; display: block;">
+    </div>
     <div class="post-meta">
       <time datetime="{{ date | isoDate }}">{{ date | dateFormat }}</time>
       {% if tags %}
