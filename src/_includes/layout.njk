@@ -11,18 +11,18 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="{{ '/css/style.css' | url }}">
 </head>
 <body>
   <header class="site-header">
     <nav class="nav-container">
-      <a href="/" class="logo">
+      <a href="{{ '/' | url }}" class="logo">
         <span class="logo-icon">⚡</span>
         <span class="logo-text">AI Efficiency Lab</span>
       </a>
       <ul class="nav-links">
-        <li><a href="/">ホーム</a></li>
-        <li><a href="/about/">このサイトについて</a></li>
+        <li><a href="{{ '/' | url }}">ホーム</a></li>
+        <li><a href="{{ '/about/' | url }}">このサイトについて</a></li>
       </ul>
     </nav>
   </header>
