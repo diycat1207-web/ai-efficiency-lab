@@ -1,0 +1,28 @@
+{
+  "name": "ai-efficiency-lab",
+  "version": "1.0.0",
+  "description": "AI活用術・効率化ツールの自動ブログ運営システム",
+  "scripts": {
+    "build": "eleventy",
+    "serve": "eleventy --serve",
+    "generate": "node scripts/generate-article.js",
+    "generate:test": "node scripts/generate-article.js --test",
+    "sns": "node scripts/generate-sns-post.js",
+    "sns:standalone": "node scripts/generate-sns-post.js --standalone",
+    "post:x": "node scripts/post-to-x.js",
+    "post:ig": "node scripts/post-to-instagram.js",
+    "pipeline": "node scripts/daily-pipeline.js",
+    "reflect": "node scripts/analyze-and-reflect.js",
+    "scheduler": "node scripts/setup-scheduler.js",
+    "dashboard": "npx serve dashboard -l 3000"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@11ty/eleventy": "^3.1.2",
+    "@google/generative-ai": "^0.24.1",
+    "dotenv": "^17.3.1",
+    "node-cron": "^4.2.1"
+  }
+}

@@ -1,0 +1,32 @@
+---
+layout: layout.njk
+---
+
+<article class="post">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="{{ date | isoDate }}">{{ date | dateFormat }}</time>
+      {% if tags %}
+      <div class="post-tags">
+        {% for tag in tags %}
+          {% if tag !== "posts" %}
+          <span class="tag">#{{ tag }}</span>
+          {% endif %}
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+    <h1 class="post-title">{{ title }}</h1>
+    {% if description %}
+    <p class="post-description">{{ description }}</p>
+    {% endif %}
+  </header>
+
+  <div class="post-content">
+    {{ content | safe }}
+  </div>
+
+  <footer class="post-footer">
+    <a href="/" class="back-link">← 記事一覧に戻る</a>
+  </footer>
+</article>

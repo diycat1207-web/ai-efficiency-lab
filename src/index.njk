@@ -1,0 +1,50 @@
+---
+layout: layout.njk
+title: AI Efficiency Lab — AI活用で仕事を10倍効率化
+description: AI活用術・効率化ツール・生産性向上テクニックの情報メディア。最新のAIツールやワークフローを紹介します。
+---
+
+<section class="hero">
+  <div class="hero-content">
+    <h1 class="hero-title">
+      <span class="hero-accent">AI</span>で、働き方を<br>
+      <span class="hero-gradient">アップデート</span>しよう
+    </h1>
+    <p class="hero-subtitle">最新のAIツール・効率化テクニック・生産性向上のヒントを毎日お届けします</p>
+  </div>
+  <div class="hero-glow"></div>
+</section>
+
+<section class="posts-section">
+  <h2 class="section-title">最新の記事</h2>
+  <div class="posts-grid">
+    {% set postslist = collections.posts %}
+    {% if postslist.length == 0 %}
+    <div class="empty-state">
+      <p class="empty-icon">📝</p>
+      <p>最初の記事を準備中です。お楽しみに！</p>
+    </div>
+    {% endif %}
+    {% for post in postslist | reverse %}
+    <article class="post-card">
+      <div class="post-card-content">
+        <div class="post-card-meta">
+          <time datetime="{{ post.date | isoDate }}">{{ post.date | dateFormat }}</time>
+          {% if post.data.tags %}
+            {% for tag in post.data.tags %}
+              {% if tag !== "posts" %}
+              <span class="tag">{{ tag }}</span>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        </div>
+        <h3 class="post-card-title">
+          <a href="{{ post.url }}">{{ post.data.title }}</a>
+        </h3>
+        <p class="post-card-excerpt">{{ post.data.description }}</p>
+        <a href="{{ post.url }}" class="read-more">続きを読む →</a>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>

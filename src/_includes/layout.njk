@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title }} | AI Efficiency Lab</title>
+  <meta name="description" content="{{ description or 'AI活用術・効率化ツールの情報メディア' }}">
+  <meta property="og:title" content="{{ title }} | AI Efficiency Lab">
+  <meta property="og:description" content="{{ description or 'AI活用術・効率化ツールの情報メディア' }}">
+  <meta property="og:type" content="{% if layout == 'post.njk' %}article{% else %}website{% endif %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav-container">
+      <a href="/" class="logo">
+        <span class="logo-icon">⚡</span>
+        <span class="logo-text">AI Efficiency Lab</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="/">ホーム</a></li>
+        <li><a href="/about/">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="main-content">
+    {{ content | safe }}
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-container">
+      <p class="footer-brand">⚡ AI Efficiency Lab</p>
+      <p class="footer-tagline">AIと効率化ツールで、あなたの生産性を最大化</p>
+      <p class="footer-copy">&copy; {{ 2026 }} AI Efficiency Lab. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
