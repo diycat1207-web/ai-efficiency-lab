@@ -229,20 +229,22 @@ function updateStats(type) {
 }
 
 // CLI実行
-const args = process.argv.slice(2);
-const testMode = args.includes('--test');
+if (require.main === module) {
+    const args = process.argv.slice(2);
+    const testMode = args.includes('--test');
 
-if (testMode) {
-    console.log('🧪 テストモードで実行中...\n');
-}
-
-generateArticle(testMode).then(result => {
-    if (result) {
-        console.log('\n🎉 完了！ `npx eleventy --serve` でプレビューできます。');
+    if (testMode) {
+        console.log('🧪 テストモードで実行中...\n');
     }
-}).catch(err => {
-    console.error('❌ エラーが発生しました:', err.message);
-    process.exit(1);
-});
+
+    generateArticle(testMode).then(result => {
+        if (result) {
+            console.log('\n🎉 完了！ `npx eleventy --serve` でプレビューできます。');
+        }
+    }).catch(err => {
+        console.error('❌ エラーが発生しました:', err.message);
+        process.exit(1);
+    });
+}
 
 module.exports = { generateArticle, selectKeyword, updateStats };

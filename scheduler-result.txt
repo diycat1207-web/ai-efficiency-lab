@@ -1,0 +1,37 @@
+﻿🔧 タスクスケジューラ設定を開始します...
+
+📄 バッチファイル作成: C:\Users\aakis\OneDrive\デスクトップ\antigravity\run-daily.bat
+node : ERROR: Access 
+is denied.
+発生場所 行:1 文字:145
++ ... Variable("Path"
+,"User"); node script
+s/setup-scheduler.js 
+2>&1 | Out-F ...
++                    
+          ~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~
+    + CategoryInfo   
+           : NotSpe  
+  cified: (ERROR:    
+ Access is denied    
+.:String) [], Re    m
+oteException
+    + FullyQualified 
+   ErrorId : Native  
+  CommandError
+ 
+
+❌ タスクの登録に失敗しました。
+   管理者権限で実行してください。
+
+📋 手動で登録する場合:
+   1. タスクスケジューラを開く
+   2. 「基本タスクの作成」を選択
+   3. 名前: AI_Efficiency_Lab_Daily
+   4. トリガー: 毎日 06:00
+   5. 操作: プログラムの開始 → C:\Users\aakis\OneDrive\デスクトップ\antigravity\run-daily.bat
+
+💡 タスクの確認: node scripts/setup-scheduler.js --check
+💡 タスクの削除: node scripts/setup-scheduler.js --remove

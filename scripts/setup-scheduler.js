@@ -7,7 +7,7 @@ const path = require('path');
 const fs = require('fs');
 
 const ROOT_DIR = path.join(__dirname, '..');
-const NODE_PATH = 'c:\\tools\\node-v20.11.1-win-x64\\node.exe';
+const NODE_PATH = process.execPath;
 const SCRIPT_PATH = path.join(__dirname, 'daily-pipeline.js');
 const TASK_NAME = 'AI_Efficiency_Lab_Daily';
 
@@ -15,8 +15,8 @@ const TASK_NAME = 'AI_Efficiency_Lab_Daily';
 function createBatchFile() {
     const batchPath = path.join(ROOT_DIR, 'run-daily.bat');
     const content = `@echo off
+chcp 65001 > nul
 cd /d "${ROOT_DIR}"
-set PATH=c:\\tools\\node-v20.11.1-win-x64;%PATH%
 "${NODE_PATH}" "${SCRIPT_PATH}"
 `;
     fs.writeFileSync(batchPath, content, 'utf-8');

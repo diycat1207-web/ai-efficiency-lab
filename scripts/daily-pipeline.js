@@ -36,7 +36,7 @@ function runStep(name, command) {
             cwd: ROOT_DIR,
             encoding: 'utf-8',
             timeout: 120000,
-            env: { ...process.env, PATH: `c:\\tools\\node-v20.11.1-win-x64;${process.env.PATH}` }
+            env: process.env
         });
         log(`✅ ${name} 完了`);
         if (output.trim()) {
@@ -54,8 +54,7 @@ async function main() {
     log('🚀 デイリーパイプライン開始');
     log('═══════════════════════════════════════');
 
-    const nodePath = 'c:\\tools\\node-v20.11.1-win-x64\\node.exe';
-    const node = fs.existsSync(nodePath) ? nodePath : 'node';
+    const node = process.execPath;
 
     // Step 1: 記事生成
     const articleGenerated = runStep(
@@ -99,10 +98,18 @@ async function main() {
     try {
         execSync('where git', { encoding: 'utf-8' });
         runStep('Git追加', 'git add -A');
-        const date = new Date().toISOString().split('T')[0];
-        runStep('Gitコミット', `git commit -m "auto: daily content update ${date}" --allow-empty`);
-        runStep('Gitプッシュ', 'git push origin main');
-        log('🌐 GitHub Pagesにデプロイ完了！');
+
+        try {
+            // 変更があるか確認
+            execSync('git diff --staged --quiet', { stdio: 'ignore' });
+            log('ℹ️  変更がないため、コミットとプッシュをスキップします。');
+        } catch (e) {
+            // exit code 1 (変更あり) の場合
+            const date = new Date().toISOString().split('T')[0];
+            runStep('Gitコミット', `git commit -m "auto: daily content update ${date}"`);
+            runStep('Gitプッシュ', 'git push origin main');
+            log('🌐 GitHub Pagesにデプロイ完了！');
+        }
     } catch {
         log('⚠️  Gitが設定されていないため、デプロイをスキップしました。');
         log('📋 README.md の手順に従ってGitをセットアップしてください。');
