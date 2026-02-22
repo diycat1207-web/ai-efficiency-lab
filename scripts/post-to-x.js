@@ -101,27 +101,64 @@ async function processQueue() {
         const filepath = path.join(SNS_QUEUE_DIR, file);
         const data = JSON.parse(fs.readFileSync(filepath, 'utf-8'));
 
-        if (data.posted && data.posted.x) continue; // 投稿済みスキップ
+        if (data.posted && data.posted.x === true) continue; // 全て投稿済みスキップ
 
         try {
             let tweetText = '';
+
             if (data.content && data.content.x) {
                 const xData = typeof data.content.x === 'string' ? JSON.parse(data.content.x) : data.content.x;
-                tweetText = xData.text || '';
-                if (xData.hashtags) {
-                    tweetText += '\n\n' + xData.hashtags.map(t => `#${t}`).join(' ');
+
+                // 配列形式 (1日複数回投稿ループ)
+                if (Array.isArray(xData)) {
+                    const postedCount = typeof data.posted.x === 'number' ? data.posted.x : 0;
+                    if (postedCount >= xData.length) {
+                        data.posted.x = true;
+                        fs.writeFileSync(filepath, JSON.stringify(data, null, 2), 'utf-8');
+                        continue;
+                    }
+
+                    const currentPost = xData[postedCount];
+                    tweetText = currentPost.text || '';
+                    if (currentPost.hashtags) {
+                        tweetText += '\n\n' + currentPost.hashtags.map(t => `#${t}`).join(' ');
+                    }
+
+                    // 次回のためにカウンターを進める
+                    if (postedCount + 1 >= xData.length) {
+                        data.posted.x = true;
+                    } else {
+                        data.posted.x = postedCount + 1;
+                    }
+                }
+                // 従来の単一投稿形式
+                else {
+                    tweetText = xData.text || '';
+                    if (xData.hashtags) {
+                        tweetText += '\n\n' + xData.hashtags.map(t => `#${t}`).join(' ');
+                    }
+                    data.posted.x = true;
                 }
             }
 
-            if (!tweetText) continue;
+            if (!tweetText) {
+                data.posted.x = true;
+                fs.writeFileSync(filepath, JSON.stringify(data, null, 2), 'utf-8');
+                continue;
+            }
 
             const success = await postTweet(tweetText);
             if (success) {
-                data.posted.x = true;
                 data.postedAt = { ...data.postedAt, x: new Date().toISOString() };
                 fs.writeFileSync(filepath, JSON.stringify(data, null, 2), 'utf-8');
                 updateStats('sns');
                 posted++;
+
+                // --single オプションで1件のみ処理して終了
+                if (process.argv.includes('--single')) {
+                    console.log(`\n📊 処理結果: ${posted}件投稿 (シングルモード)`);
+                    return;
+                }
             }
         } catch (err) {
             console.error(`❌ ${file} の投稿中にエラー:`, err.message);
@@ -134,24 +171,36 @@ async function processQueue() {
 // CLI
 if (require.main === module) {
     const args = process.argv.slice(2);
-    if (args.includes('--test')) {
-        console.log('🧪 テストモード: APIを呼ばずにキューの内容を表示');
-        if (fs.existsSync(SNS_QUEUE_DIR)) {
-            const files = fs.readdirSync(SNS_QUEUE_DIR).filter(f => f.endsWith('.json'));
-            files.forEach(f => {
-                const data = JSON.parse(fs.readFileSync(path.join(SNS_QUEUE_DIR, f), 'utf-8'));
-                console.log(`\n📄 ${f}`);
-                console.log(`  タイプ: ${data.type}`);
-                console.log(`  X投稿済み: ${data.posted?.x || false}`);
-                if (data.content?.x) console.log(`  内容: ${JSON.stringify(data.content.x).substring(0, 100)}...`);
-            });
+
+    const run = async () => {
+        if (args.includes('--delay')) {
+            const delayMin = Math.floor(Math.random() * 120);
+            console.log(`⏱️ ランダム遅延: ${delayMin}分待機中...`);
+            await new Promise(r => setTimeout(r, delayMin * 60 * 1000));
         }
-    } else {
-        processQueue().catch(err => {
-            console.error('❌ エラー:', err.message);
-            process.exit(1);
-        });
-    }
+
+        if (args.includes('--test')) {
+            console.log('🧪 テストモード: APIを呼ばずにキューの内容を表示');
+            if (fs.existsSync(SNS_QUEUE_DIR)) {
+                // ... test logic ...
+                const files = fs.readdirSync(SNS_QUEUE_DIR).filter(f => f.endsWith('.json'));
+                files.forEach(f => {
+                    const data = JSON.parse(fs.readFileSync(path.join(SNS_QUEUE_DIR, f), 'utf-8'));
+                    console.log(`\n📄 ${f}`);
+                    console.log(`  タイプ: ${data.type}`);
+                    console.log(`  X投稿済み: ${data.posted?.x || false}`);
+                    if (data.content?.x) console.log(`  内容: ${JSON.stringify(data.content.x).substring(0, 100)}...`);
+                });
+            }
+        } else {
+            await processQueue();
+        }
+    };
+
+    run().catch(err => {
+        console.error('❌ エラー:', err.message);
+        process.exit(1);
+    });
 }
 
 module.exports = { postTweet, processQueue };

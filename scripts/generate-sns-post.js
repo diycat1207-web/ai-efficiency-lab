@@ -34,20 +34,33 @@ async function generateFromArticle(articlePath) {
 記事内容: ${content.substring(0, 2000)}
 
 要件:
-- 140文字以内（日本語）
-- 読者の興味を引くフック
+- 1日3回（朝・昼・夜）に分けて投稿するための、3パターンの異なる切り口を持つ投稿文を作成
+- 各140文字以内（日本語）
+- 読者の興味を引くフック (例: 朝はモチベーション・予定系、昼は休憩中の読み物・ノウハウ系、夜は振り返り・じっくり学べる系など)
 - 記事のリンクを貼る想定（文字数に含めない）
 - ハッシュタグを2〜3個つける
 - 絵文字を効果的に使う
 - 宣伝臭くなく、価値ある情報を端的に伝える
 
 以下のJSON形式で出力:
-{"text": "投稿文", "hashtags": ["tag1", "tag2"]}`;
+{"posts": [
+  {"text": "朝用投稿文", "hashtags": ["tag1", "tag2"]},
+  {"text": "昼用投稿文", "hashtags": ["tag1", "tag2"]},
+  {"text": "夜用投稿文", "hashtags": ["tag1", "tag2"]}
+]}`;
 
-    console.log('🐦 X投稿文を生成中...');
+    console.log('🐦 X投稿文(3パターン)を生成中...');
     const xResult = await model.generateContent(xPrompt);
     let xText = xResult.response.text();
     xText = xText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+
+    let xPosts = [];
+    try {
+        xPosts = JSON.parse(xText).posts;
+    } catch (e) {
+        console.error('JSON parse error for X posts, falling back.');
+        xPosts = [{ text: xText, hashtags: [] }];
+    }
 
     // Instagram 用投稿生成
     const igPrompt = `以下のブログ記事を元に、Instagram投稿用のキャプションを生成してください。

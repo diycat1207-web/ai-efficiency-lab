@@ -77,10 +77,7 @@ async function main() {
     );
 
     // Step 3: X (Twitter) 投稿
-    runStep(
-        'X投稿',
-        `"${node}" scripts/post-to-x.js`
-    );
+    log('X投稿 (1日3回のスケジュールタスクに委譲)');
 
     // Step 4: Instagram投稿
     runStep(
