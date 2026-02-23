@@ -107,7 +107,12 @@ async function processQueue() {
             let tweetText = '';
 
             if (data.content && data.content.x) {
-                const xData = typeof data.content.x === 'string' ? JSON.parse(data.content.x) : data.content.x;
+                let xData = typeof data.content.x === 'string' ? JSON.parse(data.content.x) : data.content.x;
+
+                // 配列が含まれるオブジェクト形式の場合は配列を取り出す
+                if (xData && xData.posts && Array.isArray(xData.posts)) {
+                    xData = xData.posts;
+                }
 
                 // 配列形式 (1日複数回投稿ループ)
                 if (Array.isArray(xData)) {
