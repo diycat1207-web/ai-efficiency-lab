@@ -57,6 +57,27 @@ async function generateFromArticle(articlePath) {
     let xPosts = [];
     try {
         xPosts = JSON.parse(xText).posts;
+
+        // 記事URLの生成と、誘導文（CTA）の追加
+        const slug = path.basename(articlePath, '.md');
+        const blogUrl = process.env.BLOG_URL || 'https://diycat1207-web.github.io/ai-efficiency-lab';
+        const articleLink = `${blogUrl}/posts/${slug}/`;
+
+        const ctas = [
+            "👇 続きはこちらをチェック！",
+            "✨ 詳細・実践方法はブログで解説中",
+            "📖 気になる方はこちらの記事へ",
+            "🚀 もっと知りたい方はこちら",
+            "💡 今すぐ続きを読んで試してみる👇"
+        ];
+
+        // 各投稿にランダムなCTAとURLを付与
+        xPosts = xPosts.map(post => {
+            const randomCta = ctas[Math.floor(Math.random() * ctas.length)];
+            post.text = `${post.text}\n\n${randomCta}\n${articleLink}`;
+            return post;
+        });
+
     } catch (e) {
         console.error('JSON parse error for X posts, falling back.');
         xPosts = [{ text: xText, hashtags: [] }];
@@ -85,7 +106,7 @@ async function generateFromArticle(articlePath) {
     let igText = igResult.response.text();
     igText = igText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
 
-    return { x: xText, instagram: igText, title };
+    return { x: xPosts, instagram: igText, title };
 }
 
 // 独立したSNS投稿を生成（記事なし）
