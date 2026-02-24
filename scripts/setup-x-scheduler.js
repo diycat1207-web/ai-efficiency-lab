@@ -19,11 +19,8 @@ const TASKS = [
 // バッチファイルを作成
 function createBatchFile() {
     const batchPath = path.join(ROOT_DIR, 'run-x-post.bat');
-    const content = `@echo off
-chcp 65001 > nul
-cd /d "${ROOT_DIR}"
-"${NODE_PATH}" "${SCRIPT_PATH}" --single --delay
-`;
+    const logPath = path.join(ROOT_DIR, 'logs', 'x-scheduler.log');
+    const content = `@echo off\r\nchcp 65001 > nul\r\ncd /d "${ROOT_DIR}"\r\n"${NODE_PATH}" "${SCRIPT_PATH}" --single --delay >> "${logPath}" 2>&1\r\n`;
     fs.writeFileSync(batchPath, content, 'utf-8');
     console.log(`📄 バッチファイル作成: ${batchPath}`);
     return batchPath;
