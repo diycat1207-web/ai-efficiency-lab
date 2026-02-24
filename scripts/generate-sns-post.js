@@ -61,7 +61,7 @@ async function generateFromArticle(articlePath) {
         // 記事URLの生成と、誘導文（CTA）の追加
         const slug = path.basename(articlePath, '.md');
         const blogUrl = process.env.BLOG_URL || 'https://diycat1207-web.github.io/ai-efficiency-lab';
-        const articleLink = `${blogUrl}/posts/${slug}/`;
+        const articleLink = encodeURI(`${blogUrl}/posts/${slug}/`);
 
         const ctas = [
             "👇 続きはこちらをチェック！",
