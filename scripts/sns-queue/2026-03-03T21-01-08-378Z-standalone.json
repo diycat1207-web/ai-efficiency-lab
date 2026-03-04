@@ -2,11 +2,14 @@
   "type": "standalone",
   "createdAt": "2026-03-03T21:01:08.378Z",
   "posted": {
-    "x": false,
+    "x": true,
     "instagram": false
   },
   "content": {
     "x": "{\n  \"text\": \"【保存版】無料AIツールで爆速効率化！🚀\\n✅ChatGPT：アイデア出し、文章生成・要約に！\\n✅Canva AI：資料やSNS画像デザインが爆速！\\n✅Perplexity AI：検索＆要約で情報収集が神に！\\n全部無料なのに超強力！日々の業務や学習に絶対役立つよ！今すぐ試してみてね✨\",\n  \"hashtags\": [\"AIツール\", \"無料AI\", \"生産性向上\"]\n}",
     "topic": "おすすめの無料AIツール紹介"
+  },
+  "postedAt": {
+    "x": "2026-03-04T03:26:05.526Z"
   }
 }
