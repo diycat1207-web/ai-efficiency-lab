@@ -142,8 +142,11 @@ async function generateArticle(testMode = false) {
     const response = result.response;
     let text = response.text();
 
-    // フロントマターを解析
-    const frontMatterMatch = text.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+    // Markdownのコードブロックを削除 (Geminiがマークダウンで囲む場合に対応)
+    text = text.replace(/^```(markdown)?\r?\n/i, '').replace(/\r?\n```$/i, '').trim();
+
+    // フロントマターを解析 (\r?\nで両方の改行コードに対応)
+    const frontMatterMatch = text.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/);
     if (!frontMatterMatch) {
         console.error('❌ 記事のフォーマットが不正です。再試行してください。');
         console.log('受信テキスト:', text.substring(0, 200));

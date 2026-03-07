@@ -75,6 +75,7 @@ async function postTweet(text) {
                     resolve(true);
                 } else {
                     console.error(`❌ 投稿失敗 (${res.statusCode}):`, data);
+                    // 403等のエラー時もレスポンスを返して呼び出し元で処理できるようにする
                     resolve(false);
                 }
             });
@@ -164,9 +165,17 @@ async function processQueue() {
                     console.log(`\n📊 処理結果: ${posted}件投稿 (シングルモード)`);
                     return;
                 }
+            } else {
+                // 失敗した場合、一定回数リトライ後にスキップするなどの処理を追加できるが
+                // ここでは一旦そのままにして次回再試行させる。
+                // 連続エラーを防ぐため、1件失敗したらそこで今回の処理は終了する。
+                console.log(`⚠️ 投稿に失敗したため、処理を中断します。`);
+                return;
             }
         } catch (err) {
-            console.error(`❌ ${file} の投稿中にエラー:`, err.message);
+            console.error(`❌ ${file} の投稿中に例外エラー:`, err.message);
+            // 致命的エラーの場合は次へ行かず中断
+            return;
         }
     }
 
