@@ -53,6 +53,9 @@ async function postTweet(text) {
         .join(', ');
 
     const body = JSON.stringify({ text });
+    console.log('--- 送信ペイロード ---');
+    console.log(body);
+    console.log('----------------------');
 
     return new Promise((resolve, reject) => {
         const urlObj = new URL(url);
@@ -152,6 +155,9 @@ async function processQueue() {
                 fs.writeFileSync(filepath, JSON.stringify(data, null, 2), 'utf-8');
                 continue;
             }
+
+            console.log(`\n▶️ 処理対象ファイル: ${file}`);
+            console.log(`▶️ 抽出されたツイートテキスト:\n${tweetText}\n`);
 
             const success = await postTweet(tweetText);
             if (success) {
