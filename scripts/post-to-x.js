@@ -53,9 +53,6 @@ async function postTweet(text) {
         .join(', ');
 
     const body = JSON.stringify({ text });
-    console.log('--- 送信ペイロード ---');
-    console.log(body);
-    console.log('----------------------');
 
     return new Promise((resolve, reject) => {
         const urlObj = new URL(url);
@@ -157,7 +154,6 @@ async function processQueue() {
             }
 
             console.log(`\n▶️ 処理対象ファイル: ${file}`);
-            console.log(`▶️ 抽出されたツイートテキスト:\n${tweetText}\n`);
 
             const success = await postTweet(tweetText);
             if (success) {
@@ -172,15 +168,19 @@ async function processQueue() {
                     return;
                 }
             } else {
-                // 失敗した場合、一定回数リトライ後にスキップするなどの処理を追加できるが
-                // ここでは一旦そのままにして次回再試行させる。
-                // 連続エラーを防ぐため、1件失敗したらそこで今回の処理は終了する。
-                console.log(`⚠️ 投稿に失敗したため、処理を中断します。`);
-                return;
+                // 投稿失敗: この投稿を「スキップ済み」としてマークし、次の投稿に進む
+                // これにより、スパムフィルタで弾かれた投稿がキューを永遠にブロックすることを防ぐ
+                console.log(`⚠️ ${file} の投稿に失敗。スキップして次へ進みます。`);
+                data.posted.x = true;
+                data.skippedX = true;
+                data.skipReason = '403 Forbidden - スパムフィルタまたはアカウント制限';
+                fs.writeFileSync(filepath, JSON.stringify(data, null, 2), 'utf-8');
+                continue;
             }
         } catch (err) {
             console.error(`❌ ${file} の投稿中に例外エラー:`, err.message);
-            // 致命的エラーの場合は次へ行かず中断
+            // ネットワークエラーなどの場合は次回再試行のため中断
+            console.log(`⚠️ ネットワークエラーのため処理を中断します。`);
             return;
         }
     }
