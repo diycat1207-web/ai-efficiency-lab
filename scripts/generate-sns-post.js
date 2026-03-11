@@ -9,6 +9,7 @@ require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
 
 const POSTS_DIR = path.join(__dirname, '..', 'src', 'posts');
 const SNS_QUEUE_DIR = path.join(__dirname, 'sns-queue');
+const BLOG_URL = process.env.BLOG_URL || 'https://diycat1207-web.github.io/ai-efficiency-lab';
 
 function getGenAI() {
     if (!process.env.GEMINI_API_KEY) {
@@ -60,8 +61,7 @@ async function generateFromArticle(articlePath) {
 
         // 記事URLの生成と、誘導文（CTA）の追加
         const slug = path.basename(articlePath, '.md');
-        const blogUrl = process.env.BLOG_URL || 'https://diycat1207-web.github.io/ai-efficiency-lab';
-        const articleLink = encodeURI(`${blogUrl}/posts/${slug}/`);
+        const articleLink = encodeURI(`${BLOG_URL}/posts/${slug}/`);
 
         const ctas = [
             "👇 続きはこちらをチェック！",
@@ -109,7 +109,7 @@ async function generateFromArticle(articlePath) {
     return { x: xPosts, instagram: igText, title };
 }
 
-// 独立したSNS投稿を生成（記事なし）
+// 独立したSNS投稿を生成（記事なし・必ずブログURLを含む）
 async function generateStandalonePost() {
     const genAI = getGenAI();
     const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
@@ -131,7 +131,7 @@ async function generateStandalonePost() {
 「${topic}」について、フォロワーに役立つ投稿を1つ作ってください。
 
 要件:
-- 140文字以内（日本語）
+- 120文字以内（日本語）※後でブログURLを自動追加するため短めに
 - 具体的で実用的な内容
 - 読者が「保存したい」「シェアしたい」と思う有益さ
 - ハッシュタグ2〜3個
@@ -144,6 +144,22 @@ async function generateStandalonePost() {
     const xResult = await model.generateContent(xPrompt);
     let xText = xResult.response.text();
     xText = xText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+
+    // ブログへの誘導URLを必ず追加
+    try {
+        const parsed = JSON.parse(xText);
+        const ctas = [
+            "👇 もっと詳しくはブログで！",
+            "✨ 他にも役立つ情報発信中！",
+            "💡 AI活用術まとめはこちら👇",
+            "🚀 ブログで毎日更新中！",
+        ];
+        const randomCta = ctas[Math.floor(Math.random() * ctas.length)];
+        parsed.text = `${parsed.text}\n\n${randomCta}\n${BLOG_URL}`;
+        xText = JSON.stringify(parsed);
+    } catch (e) {
+        // JSON解析失敗時はそのまま返す
+    }
 
     return { x: xText, topic };
 }
