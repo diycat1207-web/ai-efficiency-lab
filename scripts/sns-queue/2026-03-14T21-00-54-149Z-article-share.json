@@ -2,7 +2,7 @@
   "type": "article-share",
   "createdAt": "2026-03-14T21:00:54.150Z",
   "posted": {
-    "x": 1,
+    "x": true,
     "instagram": false
   },
   "content": {
@@ -36,6 +36,6 @@
     "title": "Canva AI 画像生成でデザイン革命！プロ並みビジュアルを爆速作成する秘訣とビジネス活用術"
   },
   "postedAt": {
-    "x": "2026-03-15T10:53:02.940Z"
+    "x": "2026-03-16T04:47:03.596Z"
   }
 }
