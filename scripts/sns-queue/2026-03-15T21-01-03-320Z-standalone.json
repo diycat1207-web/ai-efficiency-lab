@@ -2,11 +2,13 @@
   "type": "standalone",
   "createdAt": "2026-03-15T21:01:03.320Z",
   "posted": {
-    "x": false,
+    "x": true,
     "instagram": false
   },
   "content": {
     "x": "{\"text\":\"【知らないと損！】ブラウザやアプリのタブを瞬時に閉じる「Ctrl/Cmd + W」は神ショートカット！✨ マウスで「×」を探す手間ゼロで、作業効率が爆上がりします。不要なタブはサッと閉じて集中力UP！🚀 保存して使いこなそう！\\n\\n👇 もっと詳しくはブログで！\\nhttps://diycat1207-web.github.io/ai-efficiency-lab\",\"hashtags\":[\"ショートカットキー\",\"効率化\",\"時短術\"]}",
     "topic": "便利なショートカットキー"
-  }
+  },
+  "skippedX": true,
+  "skipReason": "403 Forbidden - スパムフィルタまたはアカウント制限"
 }

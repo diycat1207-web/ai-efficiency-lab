@@ -2,7 +2,7 @@
   "type": "article-share",
   "createdAt": "2026-03-15T21:00:55.126Z",
   "posted": {
-    "x": 1,
+    "x": true,
     "instagram": false
   },
   "content": {
@@ -36,6 +36,6 @@
     "title": "AIを活用した採用活動を劇的に変える！効率化と成果最大化の秘訣"
   },
   "postedAt": {
-    "x": "2026-03-16T09:12:03.203Z"
+    "x": "2026-03-17T04:00:03.610Z"
   }
 }
