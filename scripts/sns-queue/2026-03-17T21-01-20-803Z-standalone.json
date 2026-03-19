@@ -2,11 +2,13 @@
   "type": "standalone",
   "createdAt": "2026-03-17T21:01:20.804Z",
   "posted": {
-    "x": false,
+    "x": true,
     "instagram": false
   },
   "content": {
     "x": "{\"text\":\"「あ！間違えてタブ閉じちゃった😱」そんな時、焦らずコレ！\\n👉 Ctrl+Shift+T (Win) / Cmd+Shift+T (Mac) で閉じたタブを一瞬で復元！作業効率爆上がり間違いなし🚀\\nタイムロスをなくしてサクサク進めよう！\\n\\n✨ 他にも役立つ情報発信中！\\nhttps://diycat1207-web.github.io/ai-efficiency-lab\",\"hashtags\":[\"ショートカットキー\",\"時短テク\",\"効率化\"]}",
     "topic": "便利なショートカットキー"
-  }
+  },
+  "skippedX": true,
+  "skipReason": "403 Forbidden - スパムフィルタまたはアカウント制限"
 }
