@@ -2,11 +2,13 @@
   "type": "standalone",
   "createdAt": "2026-03-19T21:01:10.538Z",
   "posted": {
-    "x": false,
+    "x": true,
     "instagram": false
   },
   "content": {
     "x": "{\"text\":\"コピペ作業、もっとスマートにしませんか？💡 [Win]+[V]でクリップボード履歴を開けば、複数コピペが一括管理できて超便利！AIで生成したテキストの整理も爆速化🚀 知らなきゃ損の神機能、今すぐ試してみて！\\n\\n💡 AI活用術まとめはこちら👇\\nhttps://diycat1207-web.github.io/ai-efficiency-lab\",\"hashtags\":[\"ショートカットキー\",\"効率化\",\"生産性向上\"]}",
     "topic": "便利なショートカットキー"
-  }
+  },
+  "skippedX": true,
+  "skipReason": "403 Forbidden - スパムフィルタまたはアカウント制限"
 }
