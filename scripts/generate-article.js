@@ -86,26 +86,32 @@ function buildPrompt(keyword) {
         trendContext = `\n\n## 現在のトレンド（可能なら記事に言及してください）:\n${strategy.trendAnalysis.hot_topics.map(t => `- ${t}`).join('\n')}`;
     }
 
-    return `あなたは「AI活用術・効率化ツール」専門のプロブロガーです。
+    const todayStr = new Date().toISOString().split('T')[0];
+
+    return `あなたはAIやガジェットが好きな、等身大の個人ブロガーです。
 以下のキーワードについて、SEOに最適化された高品質なブログ記事を書いてください。
 
 キーワード: 「${keyword}」
+現在の日付: ${todayStr}
+
+## Google検索機能の活用（必須）:
+- 過去2週間以内の「${keyword}」に関する最新ニュースやトレンドを検索し、その一次情報や最新動向を必ず記事に組み込んでください。古い情報をメインにしないでください。
+- 今回のトピックについてGoogleで検索し、上位にある実際の人気ブログの構成やトーン（語り口）を参考にして書いてください。
 
 ## 必須要件:
-1. タイトルは30〜50文字で、キーワードを含める
-2. 記事の長さは2000〜3000文字
-3. 以下のマークダウン構造で書く:
-   - 導入文（読者の悩みに共感）
-   - ## 見出し1（基本的な説明）
-   - ## 見出し2（具体的な使い方・方法）
-   - ## 見出し3（メリット・活用のコツ）
+1. タイトルは30〜50文字で、キーワードを含めること。
+2. 【文字数厳守】記事の長さは「絶対に1000〜1500文字程度」に収めること。冗長な説明は全てカットし、要点だけを短くまとめること。長すぎる記事は読まれません。
+3. 「私」または「僕」という一人称を使い、読者に語りかけるような親しみやすい文体で書くこと（※架空の名前を名乗る必要はありません）。AI特有の無機質な「〜です。〜ます。」だけの単調な連続を避けること。
+4. 【最重要】AIが書いたとバレないように、「最近個人的に試してみたこと」「実際に困っていたエピソード」「失敗談」などのリアルな人間味あふれる体験談を必ず挿入すること。
+5. 以下のマークダウン構造で書くこと（各見出しの文章量も少なめに）:
+   - 導入文（読者への共感＋自分の短い体験談）
+   - ## 最新トレンドと基本（ごく短く）
+   - ## 実践！具体的な方法と僕のリアルな体験談
    - ## まとめ
-4. 読みやすく、実用的で、具体的な情報を含める
-5. 自然な日本語で書く（AI臭さを出さない）
-6. 箇条書きや番号リストを適度に使う${strategyContext}${trendContext}
+6. 箇条書きや強調（太字）を多用して、スマホでサクッと読めるようにする。${strategyContext}${trendContext}
 
 ## 出力フォーマット:
-以下の形式で正確に出力してください。---の外に何も書かないでください。
+【絶対に厳守】挨拶などは一切出力せず、必ず1行目を「---」から始めて、以下のフォーマット通りに出力してください。
 
 ---
 title: "ここにタイトル"
@@ -135,9 +141,13 @@ async function generateArticle(testMode = false) {
     console.log(`📌 選択キーワード: 「${keyword}」`);
 
     const genAI = getGenAI();
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
+    // Google検索ツールを有効にしたモデル初期化
+    const model = genAI.getGenerativeModel({ 
+        model: 'gemini-2.5-flash',
+        tools: [{ googleSearch: {} }]
+    });
 
-    console.log('✍️  Gemini APIで記事を生成中...');
+    console.log('✍️  Gemini APIで記事を生成中（最新情報を検索中）...');
     const result = await model.generateContent(buildPrompt(keyword));
     const response = result.response;
     let text = response.text();
