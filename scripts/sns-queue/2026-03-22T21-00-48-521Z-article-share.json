@@ -2,7 +2,7 @@
   "type": "article-share",
   "createdAt": "2026-03-22T21:00:48.522Z",
   "posted": {
-    "x": 2,
+    "x": true,
     "instagram": false
   },
   "content": {
@@ -36,6 +36,6 @@
     "title": "GSCデータ活用で既存記事を改善！Gemini AIで効果倍増の秘訣"
   },
   "postedAt": {
-    "x": "2026-03-23T10:31:04.188Z"
+    "x": "2026-03-24T00:02:03.743Z"
   }
 }
