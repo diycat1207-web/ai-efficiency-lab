@@ -2,11 +2,14 @@
   "type": "standalone",
   "createdAt": "2026-03-24T21:00:58.255Z",
   "posted": {
-    "x": false,
+    "x": true,
     "instagram": false
   },
   "content": {
     "x": "{\"text\":\"Ctrl+F/Cmd+Fは超便利！長い文章も一瞬で検索🔍 時間泥棒から卒業しよう！これ知ってると作業爆速🚀\\n\\n🚀 ブログで毎日更新中！\\nhttps://diycat1207-web.github.io/ai-efficiency-lab\",\"hashtags\":[\"ショートカットキー\",\"効率化\",\"時短術\"]}",
     "topic": "便利なショートカットキー"
+  },
+  "postedAt": {
+    "x": "2026-03-27T00:27:03.855Z"
   }
 }
