@@ -2,7 +2,7 @@
   "type": "article-share",
   "createdAt": "2026-03-26T21:00:50.074Z",
   "posted": {
-    "x": 1,
+    "x": true,
     "instagram": false
   },
   "content": {
@@ -33,6 +33,6 @@
     "title": "新規記事より価値大！GSCで既存記事を改善し、SNS拡散を絶対実行する戦略"
   },
   "postedAt": {
-    "x": "2026-03-28T09:31:04.218Z"
+    "x": "2026-03-29T03:47:03.849Z"
   }
 }
