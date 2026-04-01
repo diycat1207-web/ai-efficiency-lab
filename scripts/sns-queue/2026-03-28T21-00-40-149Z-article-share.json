@@ -2,7 +2,7 @@
   "type": "article-share",
   "createdAt": "2026-03-28T21:00:40.150Z",
   "posted": {
-    "x": 2,
+    "x": true,
     "instagram": false
   },
   "content": {
@@ -34,6 +34,6 @@
     "title": "2026年最新比較！僕が選ぶAIスライド作成ツールで資料作成を爆速化！"
   },
   "postedAt": {
-    "x": "2026-03-31T09:54:05.211Z"
+    "x": "2026-03-31T23:22:04.252Z"
   }
 }
