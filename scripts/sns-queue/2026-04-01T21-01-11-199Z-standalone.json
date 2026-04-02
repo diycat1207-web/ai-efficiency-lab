@@ -2,11 +2,14 @@
   "type": "standalone",
   "createdAt": "2026-04-01T21:01:11.200Z",
   "posted": {
-    "x": false,
+    "x": true,
     "instagram": false
   },
   "content": {
     "x": "{\"text\":\"AIニュース解説💡 最新AI活用で資料作成・情報収集が爆速化🚀 賢く時短、仕事の質もUP✨\\n\\n🚀 ブログで毎日更新中！\\nhttps://diycat1207-web.github.io/ai-efficiency-lab\",\"hashtags\":[\"AIニュース\",\"AI活用\",\"効率化\"]}",
     "topic": "AIニュースの解説"
+  },
+  "postedAt": {
+    "x": "2026-04-02T09:21:03.999Z"
   }
 }

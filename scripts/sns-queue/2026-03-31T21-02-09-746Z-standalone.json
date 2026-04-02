@@ -2,11 +2,14 @@
   "type": "standalone",
   "createdAt": "2026-03-31T21:02:09.747Z",
   "posted": {
-    "x": false,
+    "x": true,
     "instagram": false
   },
   "content": {
     "x": "{\"text\":\"プロンプトの最後に「結論から教えて」と加えるだけで、ChatGPTが要点を凝縮！⏰ 報告書や資料作成の時短に直結します。ぜひ実践してみてね！\\n\\n✨ 他にも役立つ情報発信中！\\nhttps://diycat1207-web.github.io/ai-efficiency-lab\",\"hashtags\":[\"AIツール\",\"ChatGPT\",\"時短\"]}",
     "topic": "AIツールの小技・Tips"
+  },
+  "postedAt": {
+    "x": "2026-04-02T03:25:03.906Z"
   }
 }
