@@ -2,11 +2,14 @@
   "type": "standalone",
   "createdAt": "2026-04-03T21:02:10.004Z",
   "posted": {
-    "x": false,
+    "x": true,
     "instagram": false
   },
   "content": {
     "x": "{\"text\":\"「あ、閉じちゃった！」🤯\\n【Ctrl/Cmd + Shift + T】で、閉じたタブを瞬時に復活！\\n焦らず作業効率爆上げ！🚀\\n\\n👇 もっと詳しくはブログで！\\nhttps://diycat1207-web.github.io/ai-efficiency-lab\",\"hashtags\":[\"ショートカットキー\",\"時短テク\",\"効率化\"]}",
     "topic": "便利なショートカットキー"
+  },
+  "postedAt": {
+    "x": "2026-04-03T23:15:03.672Z"
   }
 }
