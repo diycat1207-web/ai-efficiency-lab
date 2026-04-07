@@ -2,11 +2,14 @@
   "type": "standalone",
   "createdAt": "2026-04-06T21:02:10.675Z",
   "posted": {
-    "x": false,
+    "x": true,
     "instagram": false
   },
   "content": {
     "x": "{\"text\":\"完璧より完了！🚀 60点の完成度でも、まずアウトプットを出すことで次の行動が見えます。試行錯誤こそ最速の道。失敗も学びです💡\\n\\n👇 もっと詳しくはブログで！\\nhttps://diycat1207-web.github.io/ai-efficiency-lab\",\"hashtags\":[\"生産性向上\",\"効率化\",\"仕事術\"]}",
     "topic": "生産性向上の考え方"
+  },
+  "postedAt": {
+    "x": "2026-04-07T00:02:03.902Z"
   }
 }
